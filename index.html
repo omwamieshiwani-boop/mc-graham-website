@@ -457,7 +457,7 @@ button{
 
     ),
 
-    url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=90");
+    url("images/hero-photo.jpg");
 
     background-size:cover;
 
@@ -1068,7 +1068,7 @@ button{
 
     ),
 
-    url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=90");
+    url("images/project-1.jpg");
 
 }
 
@@ -1086,7 +1086,7 @@ button{
 
     ),
 
-    url("https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=90");
+    url("images/project-2.jpg");
 
 }
 
@@ -1104,7 +1104,7 @@ button{
 
     ),
 
-    url("https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=90");
+    url("images/project-3.jpg");
 
 }
 
@@ -1361,6 +1361,20 @@ button{
 .submit-button:hover{
 
     background:var(--orange);
+
+}
+
+.form-note{
+
+    margin-top:14px;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    color:var(--muted);
+
+    text-align:center;
 
 }
 
@@ -2572,7 +2586,9 @@ you want to create.
 <br>
 
 
-<a href="https://wa.me/254700000000"
+<a href="https://wa.me/254741272294?text=Hello%20MC%20Graham%2C%20I%27d%20like%20to%20enquire%20about%20booking%20you%20for%20an%20event."
+
+target="_blank"
 
 class="btn btn-secondary">
 
@@ -2586,6 +2602,8 @@ WHATSAPP MC GRAHAM
 
 
 <form class="booking-form"
+
+id="bookingForm"
 
 onsubmit="submitBooking(event)">
 
@@ -2627,6 +2645,8 @@ Organisation
 
 <input
 
+id="clientOrg"
+
 type="text"
 
 placeholder="Company / Organisation">
@@ -2645,6 +2665,8 @@ Email
 
 
 <input
+
+id="clientEmail"
 
 type="email"
 
@@ -2667,6 +2689,8 @@ Phone
 
 <input
 
+id="clientPhone"
+
 type="tel"
 
 placeholder="+254..."
@@ -2686,7 +2710,7 @@ Event Type
 </label>
 
 
-<select>
+<select id="eventType">
 
 <option>
 
@@ -2735,6 +2759,8 @@ Tell Me About Your Event
 
 <textarea
 
+id="eventDetails"
+
 placeholder="Event date, venue, audience size and event details...">
 
 </textarea>
@@ -2754,6 +2780,13 @@ class="btn submit-button">
 SEND BOOKING REQUEST →
 
 </button>
+
+
+<p class="form-note">
+
+Clicking send will open your email app (addressed to MC Graham) and WhatsApp with the details pre-filled — just hit send in each to complete your request.
+
+</p>
 
 
 </form>
@@ -2889,23 +2922,59 @@ GRAHAM
 
 /* =========================================================
    BOOKING FORM
+   Sends the enquiry to MC Graham via email (mailto) and
+   WhatsApp (wa.me), pre-filled with everything the client
+   entered. There is no backend/server here, so the visitor's
+   own email app and WhatsApp will open with the message ready
+   — they just need to tap "send" in each.
 ========================================================= */
+
+const GRAHAM_EMAIL = "grahamesongakenya@gmail.com";
+const GRAHAM_WHATSAPP = "254741272294";
 
 function submitBooking(event){
 
     event.preventDefault();
 
-    const name =
-    document.getElementById("clientName").value;
+    const name = document.getElementById("clientName").value;
+    const org = document.getElementById("clientOrg").value;
+    const email = document.getElementById("clientEmail").value;
+    const phone = document.getElementById("clientPhone").value;
+    const eventType = document.getElementById("eventType").value;
+    const details = document.getElementById("eventDetails").value;
+
+    const summary =
+        "New Booking Request\n" +
+        "--------------------------\n" +
+        "Name: " + name + "\n" +
+        "Organisation: " + (org || "-") + "\n" +
+        "Email: " + email + "\n" +
+        "Phone: " + phone + "\n" +
+        "Event Type: " + eventType + "\n" +
+        "Details: " + (details || "-");
+
+    // 1) Open the visitor's email app, addressed to MC Graham
+    const mailSubject = encodeURIComponent("New Booking Request — " + name);
+    const mailBody = encodeURIComponent(summary);
+    const mailtoLink =
+        "mailto:" + GRAHAM_EMAIL +
+        "?subject=" + mailSubject +
+        "&body=" + mailBody;
+
+    window.location.href = mailtoLink;
+
+    // 2) Open WhatsApp with the same details, addressed to MC Graham
+    const waText = encodeURIComponent(summary);
+    const waLink = "https://wa.me/" + GRAHAM_WHATSAPP + "?text=" + waText;
+
+    setTimeout(function(){
+        window.open(waLink, "_blank");
+    }, 400);
 
     alert(
-
         "Thank you, " +
-
         name +
-
-        "! Your booking request has been received. MC Graham will get back to you shortly."
-
+        "! We've opened your email app and WhatsApp with your booking details filled in — just hit send in each to complete your request."
     );
 
 }
