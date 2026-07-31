@@ -252,6 +252,68 @@ img{max-width:100%;height:auto;display:block;}
 .marquee-item span{color:var(--gold);margin-left:30px;}
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
+/* ============================================
+   NEW: CLIENTS / BRANDS MARQUEE SECTION
+============================================ */
+.clients{
+    padding:70px 0;
+    background:var(--white);
+    border-bottom:1px solid var(--border);
+    overflow:hidden;
+    position:relative;
+}
+.clients-label{
+    text-align:center;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:35px;
+}
+.clients-track{
+    display:flex;
+    width:max-content;
+    animation:marqueeRight 30s linear infinite;
+}
+.clients-track:hover{
+    animation-play-state:paused;
+}
+.client-logo{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:220px;
+    height:80px;
+    margin:0 50px;
+    filter:grayscale(100%) opacity(0.5);
+    transition:filter 0.4s ease, transform 0.4s ease;
+}
+.client-logo:hover{
+    filter:grayscale(0%) opacity(1);
+    transform:scale(1.05);
+}
+.client-logo img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+}
+/* Fallback text styling if images are not yet added */
+.client-logo-text{
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:-1px;
+    color:var(--black);
+    white-space:nowrap;
+    text-transform:uppercase;
+}
+
+/* Moves from left to right seamlessly */
+@keyframes marqueeRight{
+    from{transform:translateX(-50%);}
+    to{transform:translateX(0);}
+}
+
 /* Intro */
 .intro{padding:120px 5%;background:white;position:relative;overflow:hidden;}
 .intro-container{max-width:1400px;margin:auto;}
@@ -636,6 +698,11 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
     .btn{padding:15px 22px;font-size:12px;}
     
     .section-label{font-size:10px;letter-spacing:2px;}
+
+    /* Mobile adjustments for clients marquee */
+    .clients{padding:50px 0;}
+    .client-logo{width:160px;height:60px;margin:0 30px;}
+    .client-logo-text{font-size:18px;}
 }
 
 @media(max-width:380px){
@@ -660,6 +727,7 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
     .btn-primary:hover::before{transform:translateY(100%);}
     .btn-secondary:hover::before{transform:scaleX(0);}
     .btn-secondary:hover span{color:inherit;}
+    .clients-track{animation-play-state:running !important;} /* Keep moving on touch */
 }
 </style>
 </head>
@@ -762,6 +830,53 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
     </div>
 </div>
 
+<!-- ============================================
+     NEW: TRUSTED BY / CLIENTS SECTION
+============================================= -->
+<section class="clients" id="clients">
+    <div class="clients-label">Trusted By Industry Leaders</div>
+    <div class="clients-track">
+        <!-- SET 1: Original 5 Brands -->
+        <div class="client-logo">
+            <!-- REPLACE WITH: <img src="images/safaricom-logo.png" alt="Safaricom"> -->
+            <span class="client-logo-text">Safaricom</span>
+        </div>
+        <div class="client-logo">
+            <!-- REPLACE WITH: <img src="images/mesk-logo.png" alt="M.E.S.K"> -->
+            <span class="client-logo-text">M.E.S.K</span>
+        </div>
+        <div class="client-logo">
+            <!-- REPLACE WITH: <img src="images/jkuat-logo.png" alt="JKUAT"> -->
+            <span class="client-logo-text">JKUAT</span>
+        </div>
+        <div class="client-logo">
+            <!-- REPLACE WITH: <img src="images/urban-rides-logo.png" alt="Urban Rides"> -->
+            <span class="client-logo-text">Urban Rides</span>
+        </div>
+        <div class="client-logo">
+            <!-- REPLACE WITH: <img src="images/delights-logo.png" alt="Delights"> -->
+            <span class="client-logo-text">Delights</span>
+        </div>
+
+        <!-- SET 2: Duplicate for seamless infinite loop -->
+        <div class="client-logo">
+            <span class="client-logo-text">Safaricom</span>
+        </div>
+        <div class="client-logo">
+            <span class="client-logo-text">M.E.S.K</span>
+        </div>
+        <div class="client-logo">
+            <span class="client-logo-text">JKUAT</span>
+        </div>
+        <div class="client-logo">
+            <span class="client-logo-text">Urban Rides</span>
+        </div>
+        <div class="client-logo">
+            <span class="client-logo-text">Delights</span>
+        </div>
+    </div>
+</section>
+
 <!-- About -->
 <section class="intro" id="about">
     <div class="intro-container">
@@ -821,7 +936,7 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
                 <div class="service-number">02</div>
                 <h3>Awards & Gala Dinners</h3>
                 <p>Elegant, energetic hosting for moments worth celebrating.</p>
-                <div class="service-arrow"></div>
+                <div class="service-arrow">↗</div>
             </div>
             <div class="service reveal">
                 <div class="service-number">03</div>
