@@ -3,2939 +3,1140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MC Graham Esonga | Corporate MC & Event Host</title>
-
 <meta name="description" content="MC Graham Esonga — Corporate MC, Event Host and Panel Moderator. Creating experiences that move people.">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontsource-georgia@4.5.0/index.css">
 <style>
-
-/* =========================================================
-   MC GRAHAM — LUXURY BRAND SYSTEM
-   BLACK + CHAMPAGNE GOLD + PEARL + BURNT ORANGE
-========================================================= */
-
 :root{
-
     --black:#0B0B0B;
     --black-soft:#151515;
-
     --gold:#D6B56D;
     --gold-light:#E8D39A;
-
     --pearl:#FAF8F3;
     --white:#FFFFFF;
-
     --orange:#C85A32;
     --orange-dark:#A94423;
-
     --text:#151515;
     --muted:#74716C;
-
     --border:rgba(11,11,11,.12);
-
     --serif:Georgia, "Times New Roman", serif;
-
     --sans:Arial, Helvetica, sans-serif;
-
 }
 
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--pearl);color:var(--text);overflow-x:hidden;cursor:none;}
+a{color:inherit;text-decoration:none;}
+button,input,textarea,select{font:inherit;}
+button{cursor:none;}
 
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* Custom Cursor */
+.cursor-dot{
+    width:8px;height:8px;background:var(--orange);border-radius:50%;
+    position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+    transition:transform .15s ease, background .3s ease;
+    mix-blend-mode:difference;
+}
+.cursor-ring{
+    width:40px;height:40px;border:2px solid var(--gold);border-radius:50%;
+    position:fixed;top:0;left:0;pointer-events:none;z-index:9998;
+    transition:transform .25s ease, width .3s, height .3s, border-color .3s;
+    transform:translate(-50%,-50%);
+}
+.cursor-ring.hover{
+    width:70px;height:70px;border-color:var(--orange);
+    background:rgba(214,181,109,.1);
 }
 
-html{
-    scroll-behavior:smooth;
+/* Loading Screen */
+.loader{
+    position:fixed;inset:0;background:var(--black);z-index:10000;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    transition:opacity .8s ease, visibility .8s;
+}
+.loader.hidden{opacity:0;visibility:hidden;}
+.loader-text{
+    font-size:clamp(50px,12vw,180px);font-weight:900;letter-spacing:-8px;
+    color:var(--pearl);overflow:hidden;
+}
+.loader-text span{
+    display:inline-block;transform:translateY(100%);
+    animation:loaderReveal .8s ease forwards;
+}
+.loader-text span:nth-child(2){animation-delay:.15s;color:var(--gold);}
+.loader-text span:nth-child(3){animation-delay:.3s;color:var(--orange);}
+@keyframes loaderReveal{to{transform:translateY(0);}}
+.loader-bar{
+    width:200px;height:2px;background:rgba(255,255,255,.15);
+    margin-top:40px;overflow:hidden;position:relative;
+}
+.loader-bar::after{
+    content:"";position:absolute;left:0;top:0;height:100%;width:0;
+    background:var(--gold);animation:loadBar 2s ease forwards;
+}
+@keyframes loadBar{to{width:100%;}}
+.loader-sub{
+    color:rgba(255,255,255,.4);font-size:11px;letter-spacing:4px;
+    text-transform:uppercase;margin-top:20px;font-weight:700;
 }
 
-body{
-
-    font-family:var(--sans);
-
-    background:var(--pearl);
-
-    color:var(--text);
-
-    overflow-x:hidden;
-
+/* Progress Bar */
+.progress-bar{
+    position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--orange));
+    z-index:999;width:0;transition:width .1s;
 }
 
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-button,
-input,
-textarea,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
+/* Navbar */
 .navbar{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-
-    height:82px;
-
-    z-index:1000;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 5%;
-
-    background:rgba(250,248,243,.92);
-
-    backdrop-filter:blur(18px);
-
+    position:fixed;top:0;left:0;width:100%;height:82px;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;padding:0 5%;
+    background:rgba(250,248,243,.92);backdrop-filter:blur(18px);
     border-bottom:1px solid rgba(11,11,11,.08);
-
+    transition:transform .4s ease, background .4s;
 }
-
-.logo{
-
-    font-size:25px;
-
-    font-weight:900;
-
-    letter-spacing:-2px;
-
+.navbar.scrolled{background:rgba(250,248,243,.98);box-shadow:0 10px 30px rgba(0,0,0,.05);}
+.logo{font-size:25px;font-weight:900;letter-spacing:-2px;position:relative;overflow:hidden;}
+.logo span{color:var(--orange);display:inline-block;transition:transform .4s;}
+.logo:hover span{transform:translateX(5px);}
+.nav-links{list-style:none;display:flex;align-items:center;gap:34px;}
+.nav-links a{font-size:13px;font-weight:700;transition:.3s;position:relative;}
+.nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-5px;height:2px;width:0;
+    background:var(--orange);transition:width .3s;
 }
-
-.logo span{
-
-    color:var(--orange);
-
-}
-
-.nav-links{
-
-    list-style:none;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:34px;
-
-}
-
-.nav-links a{
-
-    font-size:13px;
-
-    font-weight:700;
-
-    transition:.3s;
-
-}
-
-.nav-links a:hover{
-
-    color:var(--orange);
-
-}
-
+.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{color:var(--orange);}
 .book-nav{
-
-    background:var(--black);
-
-    color:white!important;
-
-    padding:14px 23px;
-
-    border-radius:3px;
-
-    position:relative;
-
-    overflow:hidden;
-
+    background:var(--black);color:white!important;padding:14px 23px;border-radius:3px;
+    position:relative;overflow:hidden;transition:transform .3s;
 }
-
 .book-nav::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    bottom:0;
-
-    height:3px;
-
-    width:100%;
-
-    background:var(--gold);
-
+    content:"";position:absolute;left:0;bottom:0;height:3px;width:0;
+    background:var(--gold);transition:width .4s;
 }
+.book-nav:hover::after{width:100%;}
+.book-nav:hover{transform:translateY(-3px);}
+.menu{display:none;background:none;border:0;font-size:26px;cursor:none;}
 
-.menu{
-
-    display:none;
-
-    background:none;
-
-    border:0;
-
-    font-size:26px;
-
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
+/* Hero */
 .hero{
-
-    min-height:100vh;
-
-    padding:135px 5% 80px;
-
-    background:var(--pearl);
-
-    position:relative;
-
-    overflow:hidden;
-
+    min-height:100vh;padding:135px 5% 80px;background:var(--pearl);
+    position:relative;overflow:hidden;
+}
+.hero-bg-shapes{position:absolute;inset:0;pointer-events:none;z-index:1;}
+.hero-shape{
+    position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;
+    animation:float 8s ease-in-out infinite;
+}
+.hero-shape.s1{width:400px;height:400px;background:var(--gold);top:-100px;right:-100px;animation-delay:0s;}
+.hero-shape.s2{width:300px;height:300px;background:var(--orange);bottom:-50px;left:-50px;animation-delay:2s;}
+.hero-shape.s3{width:200px;height:200px;background:var(--gold-light);top:50%;left:30%;animation-delay:4s;}
+@keyframes float{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(30px,-30px) scale(1.1);}
 }
 
 .hero::after{
-
-    content:"MC";
-
-    position:absolute;
-
-    right:-5%;
-
-    bottom:-15%;
-
-    font-size:35vw;
-
-    font-weight:900;
-
-    color:rgba(214,181,109,.07);
-
-    line-height:.7;
-
-    pointer-events:none;
-
+    content:"MC";position:absolute;right:-5%;bottom:-15%;
+    font-size:35vw;font-weight:900;color:rgba(214,181,109,.07);
+    line-height:.7;pointer-events:none;
 }
-
-.hero-container{
-
-    max-width:1450px;
-
-    margin:auto;
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-.hero-grid{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:70px;
-
-    align-items:center;
-
-}
-
+.hero-container{max-width:1450px;margin:auto;position:relative;z-index:2;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
 .hero-kicker{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-
-    color:var(--orange);
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:3px;
-
-    text-transform:uppercase;
-
-    margin-bottom:30px;
-
+    display:flex;align-items:center;gap:14px;color:var(--orange);
+    font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+    margin-bottom:30px;opacity:0;
 }
-
-.kicker-line{
-
-    width:45px;
-
-    height:2px;
-
-    background:var(--gold);
-
+.kicker-line{width:45px;height:2px;background:var(--gold);position:relative;overflow:hidden;}
+.kicker-line::after{
+    content:"";position:absolute;left:0;top:0;height:100%;width:0;
+    background:var(--orange);animation:lineGrow 1s ease .5s forwards;
 }
-
-.hero h1{
-
-    font-size:clamp(70px,10vw,155px);
-
-    line-height:.79;
-
-    letter-spacing:-11px;
-
-    font-weight:900;
-
-}
-
-.hero h1 .black{
-
-    display:block;
-
-    color:var(--black);
-
-}
-
-.hero h1 .gold{
-
-    display:block;
-
-    color:var(--gold);
-
-}
-
-.hero h1 .orange{
-
-    display:block;
-
-    color:var(--orange);
-
-}
-
+@keyframes lineGrow{to{width:100%;}}
+.hero h1{font-size:clamp(70px,10vw,155px);line-height:.79;letter-spacing:-11px;font-weight:900;}
+.hero h1 .black{display:block;color:var(--black);}
+.hero h1 .gold{display:block;color:var(--gold);}
+.hero h1 .orange{display:block;color:var(--orange);}
+.hero h1 .line{display:block;overflow:hidden;}
+.hero h1 .line-inner{display:block;transform:translateY(110%);}
 .hero-description{
-
-    max-width:580px;
-
-    margin-top:40px;
-
-    font-size:18px;
-
-    line-height:1.8;
-
-    color:var(--muted);
-
+    max-width:580px;margin-top:40px;font-size:18px;line-height:1.8;
+    color:var(--muted);opacity:0;
 }
-
-.hero-actions{
-
-    display:flex;
-
-    gap:14px;
-
-    flex-wrap:wrap;
-
-    margin-top:35px;
-
-}
-
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:35px;opacity:0;}
 .btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    padding:17px 28px;
-
-    border-radius:2px;
-
-    font-weight:800;
-
-    font-size:13px;
-
-    transition:.35s;
-
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:17px 28px;border-radius:2px;font-weight:800;font-size:13px;
+    transition:.35s;position:relative;overflow:hidden;
 }
-
-.btn-primary{
-
-    background:var(--orange);
-
-    color:white;
-
+.btn-primary{background:var(--orange);color:white;}
+.btn-primary::before{
+    content:"";position:absolute;inset:0;background:var(--black);
+    transform:translateY(100%);transition:transform .4s;z-index:0;
 }
-
-.btn-primary:hover{
-
-    background:var(--black);
-
-    transform:translateY(-4px);
-
+.btn-primary:hover::before{transform:translateY(0);}
+.btn-primary span{position:relative;z-index:1;}
+.btn-primary:hover{transform:translateY(-4px);}
+.btn-secondary{background:transparent;border:1px solid var(--black);}
+.btn-secondary::before{
+    content:"";position:absolute;inset:0;background:var(--black);
+    transform:scaleX(0);transform-origin:right;transition:transform .4s;z-index:0;
 }
+.btn-secondary:hover::before{transform:scaleX(1);transform-origin:left;}
+.btn-secondary span{position:relative;z-index:1;transition:color .4s;}
+.btn-secondary:hover span{color:white;}
 
-.btn-secondary{
-
-    background:transparent;
-
-    border:1px solid var(--black);
-
-}
-
-.btn-secondary:hover{
-
-    background:var(--black);
-
-    color:white;
-
-}
-
-
-/* =========================================================
-   HERO IMAGE
-========================================================= */
-
-.hero-visual{
-
-    height:650px;
-
-    position:relative;
-
-}
-
+/* Hero Visual */
+.hero-visual{height:650px;position:relative;}
 .hero-photo{
-
-    position:absolute;
-
-    top:0;
-
-    right:5%;
-
-    width:75%;
-
-    height:90%;
-
-    background-image:
-
-    linear-gradient(
-
-        to top,
-
-        rgba(11,11,11,.65),
-
-        transparent 60%
-
-    ),
-
-    url("images/hero-photo.jpg");
-
-    background-size:cover;
-
-    background-position:center;
-
-    filter:saturate(.65);
-
-    border-radius:2px;
-
+    position:absolute;top:0;right:5%;width:75%;height:90%;
+    background-image:linear-gradient(to top,rgba(11,11,11,.65),transparent 60%),
+    url("https://image.qwenlm.ai/public_source/2924c7d4-483c-4b50-a174-f1d891e620b3/1dc4b40d6-9344-4731-ad0c-1d62bad4a7d6.png");
+    background-size:cover;background-position:center;
+    filter:saturate(.65);border-radius:2px;
     box-shadow:25px 30px 80px rgba(11,11,11,.18);
-
+    opacity:0;transform:translateY(60px);
 }
-
 .hero-photo::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:15px;
-
-    border:1px solid rgba(214,181,109,.7);
-
+    content:"";position:absolute;inset:15px;border:1px solid rgba(214,181,109,.7);
     pointer-events:none;
-
 }
-
 .hero-card{
-
-    position:absolute;
-
-    left:0;
-
-    bottom:10%;
-
-    width:250px;
-
-    background:var(--black);
-
-    color:white;
-
-    padding:30px;
-
-    z-index:5;
-
-    border-left:5px solid var(--gold);
-
-    box-shadow:0 25px 60px rgba(0,0,0,.2);
-
+    position:absolute;left:0;bottom:10%;width:250px;background:var(--black);
+    color:white;padding:30px;z-index:5;border-left:5px solid var(--gold);
+    box-shadow:0 25px 60px rgba(0,0,0,.2);opacity:0;transform:translateX(-40px);
 }
-
-.hero-card small{
-
-    color:var(--gold);
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    font-size:10px;
-
-    font-weight:800;
-
-}
-
-.hero-card h3{
-
-    margin-top:14px;
-
-    font-size:26px;
-
-    line-height:1.1;
-
-}
-
+.hero-card small{color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:10px;font-weight:800;}
+.hero-card h3{margin-top:14px;font-size:26px;line-height:1.1;}
 .hero-stamp{
-
-    position:absolute;
-
-    right:-5px;
-
-    bottom:0;
-
-    width:130px;
-
-    height:130px;
-
-    border-radius:50%;
-
-    background:var(--gold);
-
-    color:var(--black);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    font-size:10px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    transform:rotate(12deg);
-
+    position:absolute;right:-5px;bottom:0;width:130px;height:130px;
+    border-radius:50%;background:var(--gold);color:var(--black);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:10px;font-weight:900;letter-spacing:1px;transform:rotate(12deg);
+    animation:stampSpin 20s linear infinite;
 }
+@keyframes stampSpin{to{transform:rotate(372deg);}}
 
-
-/* =========================================================
-   GOLD MARQUEE
-========================================================= */
-
+/* Marquee */
 .marquee{
-
-    background:var(--black);
-
-    color:white;
-
-    padding:22px 0;
-
-    overflow:hidden;
-
-    border-top:1px solid var(--gold);
-
-    border-bottom:1px solid var(--gold);
-
+    background:var(--black);color:white;padding:22px 0;overflow:hidden;
+    border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);
+    position:relative;
 }
-
-.marquee-track{
-
-    display:flex;
-
-    width:max-content;
-
-    animation:marquee 30s linear infinite;
-
-}
-
+.marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite;}
 .marquee-item{
-
-    white-space:nowrap;
-
-    padding:0 35px;
-
-    font-size:14px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
+    white-space:nowrap;padding:0 35px;font-size:14px;font-weight:800;
+    letter-spacing:2px;text-transform:uppercase;
 }
+.marquee-item span{color:var(--gold);margin-left:30px;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-.marquee-item span{
-
-    color:var(--gold);
-
-    margin-left:30px;
-
-}
-
-@keyframes marquee{
-
-    from{
-        transform:translateX(0);
-    }
-
-    to{
-        transform:translateX(-50%);
-    }
-
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-.intro{
-
-    padding:160px 5%;
-
-    background:white;
-
-}
-
-.intro-container{
-
-    max-width:1400px;
-
-    margin:auto;
-
-}
-
+/* Intro */
+.intro{padding:160px 5%;background:white;position:relative;overflow:hidden;}
+.intro-container{max-width:1400px;margin:auto;}
 .section-label{
-
-    color:var(--orange);
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:3px;
-
+    color:var(--orange);font-size:11px;font-weight:800;letter-spacing:3px;
     text-transform:uppercase;
-
 }
-
 .intro h2{
-
-    max-width:1150px;
-
-    margin-top:35px;
-
-    font-size:clamp(48px,7vw,105px);
-
-    line-height:.95;
-
-    letter-spacing:-6px;
-
+    max-width:1150px;margin-top:35px;font-size:clamp(48px,7vw,105px);
+    line-height:.95;letter-spacing:-6px;
 }
+.intro h2 em{color:var(--orange);font-family:var(--serif);font-weight:400;}
+.intro h2 .word{display:inline-block;overflow:hidden;margin-right:.15em;}
+.intro h2 .word-inner{display:inline-block;transform:translateY(110%);}
 
-.intro h2 em{
-
-    color:var(--orange);
-
+/* Bio Paragraph - NEW */
+.bio-paragraph{
+    max-width:900px;
+    margin:55px auto 0;
+    padding:40px 45px;
+    position:relative;
     font-family:var(--serif);
-
-    font-weight:400;
-
+    font-size:clamp(17px,1.6vw,21px);
+    line-height:1.85;
+    color:var(--text);
+    font-style:italic;
+    letter-spacing:.2px;
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity 1s ease, transform 1s ease;
+}
+.bio-paragraph::before{
+    content:"";
+    position:absolute;
+    left:0;top:0;
+    width:60px;height:3px;
+    background:linear-gradient(90deg,var(--gold),var(--orange));
+}
+.bio-paragraph::after{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:1px;
+    background:linear-gradient(to bottom,var(--gold),transparent);
+}
+.bio-paragraph .bio-highlight{
+    color:var(--orange);
+    font-weight:700;
+    font-style:normal;
+    position:relative;
+    display:inline;
+}
+.bio-paragraph .bio-highlight::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:-2px;
+    height:1px;
+    background:var(--gold);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .6s ease;
+}
+.bio-paragraph.visible .bio-highlight::after{
+    transform:scaleX(1);
+}
+.bio-signature{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-top:30px;
+    padding-top:25px;
+    border-top:1px solid var(--border);
+    font-family:var(--sans);
+    font-style:normal;
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:700;
+}
+.bio-signature .bio-sig-line{
+    width:40px;height:1px;background:var(--gold);
+}
+.bio-signature .bio-sig-name{
+    color:var(--orange);
 }
 
 .intro-bottom{
-
-    max-width:620px;
-
-    margin:50px 0 0 auto;
-
-    color:var(--muted);
-
-    font-size:17px;
-
-    line-height:1.8;
-
+    max-width:620px;margin:50px 0 0 auto;color:var(--muted);
+    font-size:17px;line-height:1.8;opacity:0;
 }
 
-
-/* =========================================================
-   SERVICES
-========================================================= */
-
-.services{
-
-    padding:140px 5%;
-
-    background:var(--pearl);
-
-}
-
-.services-container{
-
-    max-width:1400px;
-
-    margin:auto;
-
-}
-
-.services-heading{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:end;
-
-    gap:50px;
-
-    margin-top:25px;
-
-}
-
-.services-heading h2{
-
-    font-size:clamp(55px,7vw,105px);
-
-    line-height:.85;
-
-    letter-spacing:-7px;
-
-}
-
-.services-heading p{
-
-    max-width:420px;
-
-    color:var(--muted);
-
-    line-height:1.8;
-
-}
-
-.service-list{
-
-    margin-top:90px;
-
-}
-
+/* Services */
+.services{padding:140px 5%;background:var(--pearl);}
+.services-container{max-width:1400px;margin:auto;}
+.services-heading{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-top:25px;}
+.services-heading h2{font-size:clamp(55px,7vw,105px);line-height:.85;letter-spacing:-7px;}
+.services-heading p{max-width:420px;color:var(--muted);line-height:1.8;}
+.service-list{margin-top:90px;}
 .service{
-
-    display:grid;
-
-    grid-template-columns:70px 1fr 1fr 60px;
-
-    align-items:center;
-
-    gap:30px;
-
-    padding:38px 0;
-
-    border-top:1px solid var(--border);
-
-    transition:.35s;
-
+    display:grid;grid-template-columns:70px 1fr 1fr 60px;align-items:center;
+    gap:30px;padding:38px 0;border-top:1px solid var(--border);
+    transition:.35s;position:relative;overflow:hidden;
 }
-
-.service:last-child{
-
-    border-bottom:1px solid var(--border);
-
+.service::before{
+    content:"";position:absolute;left:0;top:0;height:100%;width:0;
+    background:var(--orange);transition:width .4s;z-index:0;
 }
+.service:hover::before{width:100%;}
+.service:hover{color:white;}
+.service:hover .service-number{color:white;}
+.service:hover h3{color:white;}
+.service:hover p{color:rgba(255,255,255,.8);}
+.service:hover .service-arrow{color:white;transform:rotate(-45deg) scale(1.2);}
+.service>*{position:relative;z-index:1;}
+.service:last-child{border-bottom:1px solid var(--border);}
+.service-number{color:var(--gold);font-weight:900;transition:.35s;}
+.service h3{font-size:clamp(25px,3vw,45px);letter-spacing:-2px;transition:.35s;}
+.service p{color:var(--muted);line-height:1.6;transition:.35s;}
+.service-arrow{color:var(--orange);font-size:28px;transition:.35s;}
 
-.service:hover{
-
-    background:white;
-
-    padding-left:25px;
-
-    padding-right:25px;
-
-    box-shadow:0 15px 40px rgba(0,0,0,.05);
-
-}
-
-.service-number{
-
-    color:var(--gold);
-
-    font-weight:900;
-
-}
-
-.service h3{
-
-    font-size:clamp(25px,3vw,45px);
-
-    letter-spacing:-2px;
-
-}
-
-.service p{
-
-    color:var(--muted);
-
-    line-height:1.6;
-
-}
-
-.service-arrow{
-
-    color:var(--orange);
-
-    font-size:28px;
-
-}
-
-
-/* =========================================================
-   SIGNATURE BLACK SECTION
-========================================================= */
-
+/* Signature */
 .signature{
-
-    padding:150px 5%;
-
-    background:var(--black);
-
-    color:white;
-
-    position:relative;
-
-    overflow:hidden;
-
+    padding:150px 5%;background:var(--black);color:white;
+    position:relative;overflow:hidden;
 }
-
 .signature::after{
-
-    content:"G";
-
-    position:absolute;
-
-    right:-10%;
-
-    bottom:-40%;
-
-    font-size:80vw;
-
-    line-height:.5;
-
-    color:rgba(214,181,109,.035);
-
-    font-weight:900;
-
+    content:"G";position:absolute;right:-10%;bottom:-40%;
+    font-size:80vw;line-height:.5;color:rgba(214,181,109,.035);font-weight:900;
 }
-
-.signature-container{
-
-    max-width:1400px;
-
-    margin:auto;
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-.signature .section-label{
-
-    color:var(--gold);
-
-}
-
-.signature h2{
-
-    font-size:clamp(65px,10vw,150px);
-
-    line-height:.8;
-
-    letter-spacing:-10px;
-
-    margin-top:35px;
-
-}
-
-.signature h2 span{
-
-    color:var(--gold);
-
-}
-
-.signature-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:50px;
-
-    margin-top:110px;
-
-}
-
+.signature-container{max-width:1400px;margin:auto;position:relative;z-index:2;}
+.signature .section-label{color:var(--gold);}
+.signature h2{font-size:clamp(65px,10vw,150px);line-height:.8;letter-spacing:-10px;margin-top:35px;}
+.signature h2 span{color:var(--gold);}
+.signature h2 .sig-line{display:block;overflow:hidden;}
+.signature h2 .sig-inner{display:block;transform:translateY(110%);}
+.signature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:50px;margin-top:110px;}
 .signature-card{
-
-    border-top:1px solid rgba(214,181,109,.4);
-
-    padding-top:25px;
-
+    border-top:1px solid rgba(214,181,109,.4);padding-top:25px;
+    opacity:0;transform:translateY(40px);
 }
+.signature-card strong{font-size:45px;color:var(--gold);}
+.signature-card h3{margin-top:15px;font-size:22px;}
+.signature-card p{color:rgba(255,255,255,.6);line-height:1.7;margin-top:15px;}
 
-.signature-card strong{
-
-    font-size:45px;
-
-    color:var(--gold);
-
-}
-
-.signature-card h3{
-
-    margin-top:15px;
-
-    font-size:22px;
-
-}
-
-.signature-card p{
-
-    color:rgba(255,255,255,.6);
-
-    line-height:1.7;
-
-    margin-top:15px;
-
-}
-
-
-/* =========================================================
-   PORTFOLIO
-========================================================= */
-
-.portfolio{
-
-    padding:150px 5%;
-
-    background:white;
-
-}
-
-.portfolio-container{
-
-    max-width:1400px;
-
-    margin:auto;
-
-}
-
-.portfolio-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:end;
-
-    gap:50px;
-
-}
-
-.portfolio-header h2{
-
-    font-size:clamp(55px,7vw,105px);
-
-    line-height:.85;
-
-    letter-spacing:-7px;
-
-}
-
-.portfolio-header h2 span{
-
-    color:var(--orange);
-
-}
-
-.portfolio-header p{
-
-    max-width:400px;
-
-    color:var(--muted);
-
-    line-height:1.8;
-
-}
-
-.portfolio-grid{
-
-    display:grid;
-
-    grid-template-columns:1.2fr .8fr;
-
-    gap:25px;
-
-    margin-top:75px;
-
-}
-
+/* Portfolio */
+.portfolio{padding:150px 5%;background:white;}
+.portfolio-container{max-width:1400px;margin:auto;}
+.portfolio-header{display:flex;justify-content:space-between;align-items:end;gap:50px;}
+.portfolio-header h2{font-size:clamp(55px,7vw,105px);line-height:.85;letter-spacing:-7px;}
+.portfolio-header h2 span{color:var(--orange);}
+.portfolio-header p{max-width:400px;color:var(--muted);line-height:1.8;}
+.portfolio-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:25px;margin-top:75px;}
 .project{
-
-    min-height:500px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    background-size:cover;
-
-    background-position:center;
-
-    color:white;
-
+    min-height:500px;position:relative;overflow:hidden;
+    background-size:cover;background-position:center;color:white;
     transition:.5s;
-
 }
-
-.project:hover{
-
-    transform:translateY(-8px);
-
+.project::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(11,11,11,.9),transparent 65%);
+    z-index:1;
 }
-
-.project:nth-child(1){
-
-    background-image:
-
-    linear-gradient(
-
-        to top,
-
-        rgba(11,11,11,.9),
-
-        transparent 65%
-
-    ),
-
-    url("images/project-1.jpg");
-
+.project:hover{transform:translateY(-8px);}
+.project:hover .project-img{transform:scale(1.08);}
+.project-img{
+    position:absolute;inset:0;background-size:cover;background-position:center;
+    transition:transform .8s ease;
 }
-
-.project:nth-child(2){
-
-    background-image:
-
-    linear-gradient(
-
-        to top,
-
-        rgba(11,11,11,.9),
-
-        transparent 65%
-
-    ),
-
-    url("images/project-2.jpg");
-
-}
-
-.project:nth-child(3){
-
-    background-image:
-
-    linear-gradient(
-
-        to top,
-
-        rgba(11,11,11,.9),
-
-        transparent 65%
-
-    ),
-
-    url("images/project-3.jpg");
-
-}
-
-.project-content{
-
-    position:absolute;
-
-    left:30px;
-
-    right:30px;
-
-    bottom:30px;
-
-}
-
+.project:nth-child(1) .project-img{background-image:url("https://image.qwenlm.ai/public_source/2924c7d4-483c-4b50-a174-f1d891e620b3/16ba33eab-c893-4ffb-a33d-2a4d8484423f.png");}
+.project:nth-child(2) .project-img{background-image:url("https://image.qwenlm.ai/public_source/2924c7d4-483c-4b50-a174-f1d891e620b3/1b32a7291-70e0-4a18-b6ae-23035ed3d6b5.png");}
+.project:nth-child(3) .project-img{background-image:url("https://image.qwenlm.ai/public_source/2924c7d4-483c-4b50-a174-f1d891e620b3/116b1e604-7960-47e3-b83e-760fed1a5125.png");}
+.project-content{position:absolute;left:30px;right:30px;bottom:30px;z-index:2;}
 .project-tag{
-
-    display:inline-block;
-
-    padding:7px 13px;
-
-    background:var(--orange);
-
-    color:white;
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:1px;
-
+    display:inline-block;padding:7px 13px;background:var(--orange);color:white;
+    font-size:10px;font-weight:800;letter-spacing:1px;
 }
+.project h3{font-size:36px;margin-top:12px;}
 
-.project h3{
-
-    font-size:36px;
-
-    margin-top:12px;
-
-}
-
-
-/* =========================================================
-   TESTIMONIAL
-========================================================= */
-
-.testimonial-section{
-
-    padding:150px 5%;
-
-    background:var(--pearl);
-
-}
-
-.testimonial-container{
-
-    max-width:1100px;
-
-    margin:auto;
-
-}
-
+/* Testimonial */
+.testimonial-section{padding:150px 5%;background:var(--pearl);}
+.testimonial-container{max-width:1100px;margin:auto;}
 .quote-mark{
-
-    color:var(--gold);
-
-    font-family:var(--serif);
-
-    font-size:120px;
-
-    line-height:.5;
-
+    color:var(--gold);font-family:var(--serif);font-size:120px;line-height:.5;
+    opacity:0;
 }
-
 .testimonial-text{
-
-    margin-top:35px;
-
-    font-family:var(--serif);
-
-    font-size:clamp(30px,5vw,65px);
-
+    margin-top:35px;font-family:var(--serif);font-size:clamp(30px,5vw,65px);
     line-height:1.15;
-
 }
+.testimonial-text .t-word{display:inline-block;opacity:0;transform:translateY(20px);}
+.testimonial-person{margin-top:40px;color:var(--muted);opacity:0;}
 
-.testimonial-person{
-
-    margin-top:40px;
-
-    color:var(--muted);
-
+/* Booking */
+.booking{padding:150px 5%;background:var(--orange);position:relative;overflow:hidden;}
+.booking::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 20% 50%,rgba(255,255,255,.1),transparent 50%);
+    pointer-events:none;
 }
-
-
-/* =========================================================
-   BOOKING
-========================================================= */
-
-.booking{
-
-    padding:150px 5%;
-
-    background:var(--orange);
-
-}
-
 .booking-container{
-
-    max-width:1400px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:.8fr 1.2fr;
-
-    gap:90px;
-
+    max-width:1400px;margin:auto;display:grid;grid-template-columns:.8fr 1.2fr;gap:90px;
+    position:relative;z-index:2;
 }
-
-.booking-copy .section-label{
-
-    color:white;
-
-}
-
-.booking-copy h2{
-
-    font-size:clamp(55px,7vw,105px);
-
-    line-height:.85;
-
-    letter-spacing:-7px;
-
-    margin-top:35px;
-
-}
-
-.booking-copy p{
-
-    max-width:450px;
-
-    margin-top:35px;
-
-    line-height:1.8;
-
-    color:rgba(11,11,11,.7);
-
-}
-
+.booking-copy .section-label{color:white;}
+.booking-copy h2{font-size:clamp(55px,7vw,105px);line-height:.85;letter-spacing:-7px;margin-top:35px;}
+.booking-copy p{max-width:450px;margin-top:35px;line-height:1.8;color:rgba(11,11,11,.7);}
 .booking-form{
-
-    background:white;
-
-    padding:45px;
-
-    border-radius:3px;
-
+    background:white;padding:45px;border-radius:3px;
     box-shadow:0 30px 80px rgba(11,11,11,.2);
-
+    opacity:0;transform:translateY(40px);
 }
-
-.form-grid{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:20px;
-
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.form-group{display:flex;flex-direction:column;gap:8px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+.form-group input,.form-group select,.form-group textarea{
+    padding:16px;border:1px solid var(--border);background:var(--pearl);
+    outline:none;border-radius:2px;transition:.3s;
 }
-
-.form-group{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--gold);background:white;box-shadow:0 0 0 4px rgba(214,181,109,.15);
 }
-
-.form-group.full{
-
-    grid-column:1/-1;
-
-}
-
-.form-group label{
-
-    font-size:10px;
-
-    font-weight:800;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-    color:var(--muted);
-
-}
-
-.form-group input,
-
-.form-group select,
-
-.form-group textarea{
-
-    padding:16px;
-
-    border:1px solid var(--border);
-
-    background:var(--pearl);
-
-    outline:none;
-
-    border-radius:2px;
-
-}
-
-.form-group input:focus,
-
-.form-group select:focus,
-
-.form-group textarea:focus{
-
-    border-color:var(--gold);
-
-}
-
-.form-group textarea{
-
-    min-height:130px;
-
-    resize:vertical;
-
-}
-
-.submit-button{
-
-    width:100%;
-
-    margin-top:25px;
-
-    border:0;
-
-    background:var(--black);
-
-    color:white;
-
-}
-
-.submit-button:hover{
-
-    background:var(--orange);
-
-}
-
-.form-note{
-
-    margin-top:14px;
-
-    font-size:12px;
-
-    line-height:1.6;
-
-    color:var(--muted);
-
-    text-align:center;
-
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-
-    padding:100px 5% 30px;
-
-    background:var(--black);
-
-    color:white;
-
-}
-
-.footer-container{
-
-    max-width:1400px;
-
-    margin:auto;
-
-}
-
-.footer-top{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:50px;
-
-    padding-bottom:70px;
-
-    border-bottom:1px solid rgba(214,181,109,.25);
-
-}
-
-.footer-logo{
-
-    font-size:65px;
-
-    font-weight:900;
-
-    letter-spacing:-6px;
-
-}
-
-.footer-logo span{
-
-    color:var(--gold);
-
-}
-
-.footer-tagline{
-
-    max-width:350px;
-
-    margin-top:20px;
-
-    color:rgba(255,255,255,.55);
-
-    line-height:1.7;
-
-}
-
-.footer-links{
-
-    display:flex;
-
-    gap:30px;
-
-}
-
-.footer-links a{
-
-    color:rgba(255,255,255,.65);
-
-    font-size:13px;
-
-}
-
-.footer-links a:hover{
-
-    color:var(--gold);
-
-}
-
-.footer-bottom{
-
-    padding-top:25px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:rgba(255,255,255,.35);
-
-    font-size:11px;
-
-}
-
-
-/* =========================================================
-   FLOATING BOOK BUTTON
-========================================================= */
-
+.form-group textarea{min-height:130px;resize:vertical;}
+.submit-button{width:100%;margin-top:25px;border:0;background:var(--black);color:white;}
+.submit-button:hover{background:var(--orange);}
+.form-note{margin-top:14px;font-size:12px;line-height:1.6;color:var(--muted);text-align:center;}
+
+/* Footer */
+footer{padding:100px 5% 30px;background:var(--black);color:white;}
+.footer-container{max-width:1400px;margin:auto;}
+.footer-top{display:flex;justify-content:space-between;gap:50px;padding-bottom:70px;border-bottom:1px solid rgba(214,181,109,.25);}
+.footer-logo{font-size:65px;font-weight:900;letter-spacing:-6px;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{max-width:350px;margin-top:20px;color:rgba(255,255,255,.55);line-height:1.7;}
+.footer-links{display:flex;gap:30px;}
+.footer-links a{color:rgba(255,255,255,.65);font-size:13px;transition:.3s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{padding-top:25px;display:flex;justify-content:space-between;color:rgba(255,255,255,.35);font-size:11px;}
+
+/* Floating Book */
 .floating-book{
+    position:fixed;right:25px;bottom:25px;width:80px;height:80px;z-index:1500;
+    border-radius:50%;background:var(--gold);color:var(--black);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    text-align:center;font-size:10px;font-weight:900;letter-spacing:1px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);transition:.3s;
+    animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+    0%,100%{box-shadow:0 15px 40px rgba(0,0,0,.2),0 0 0 0 rgba(214,181,109,.5);}
+    50%{box-shadow:0 15px 40px rgba(0,0,0,.2),0 0 0 20px rgba(214,181,109,0);}
+}
+.floating-book:hover{transform:scale(1.1) rotate(5deg);background:var(--orange);color:white;}
 
-    position:fixed;
-
-    right:25px;
-
-    bottom:25px;
-
-    width:80px;
-
-    height:80px;
-
-    z-index:1500;
-
-    border-radius:50%;
-
-    background:var(--gold);
-
-    color:var(--black);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    flex-direction:column;
-
-    text-align:center;
-
-    font-size:10px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    box-shadow:0 15px 40px rgba(0,0,0,.2);
-
-    transition:.3s;
-
+/* Particles */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.particle{
+    position:absolute;width:4px;height:4px;background:var(--gold);
+    border-radius:50%;opacity:0;
 }
 
-.floating-book:hover{
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 
-    transform:scale(1.1) rotate(5deg);
-
-    background:var(--orange);
-
-    color:white;
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
+/* Mobile */
 @media(max-width:1000px){
-
-    .nav-links{
-
-        display:none;
-
-    }
-
-    .menu{
-
-        display:block;
-
-    }
-
-    .hero-grid,
-
-    .booking-container{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .hero-visual{
-
-        height:550px;
-
-    }
-
-    .services-heading,
-
-    .portfolio-header{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-    .service{
-
-        grid-template-columns:50px 1fr 50px;
-
-    }
-
-    .service p{
-
-        display:none;
-
-    }
-
-    .portfolio-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .signature-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
+    body{cursor:auto;}
+    .cursor-dot,.cursor-ring{display:none;}
+    .nav-links{display:none;}
+    .menu{display:block;}
+    .hero-grid,.booking-container{grid-template-columns:1fr;}
+    .hero-visual{height:550px;}
+    .services-heading,.portfolio-header{flex-direction:column;align-items:flex-start;}
+    .service{grid-template-columns:50px 1fr 50px;}
+    .service p{display:none;}
+    .portfolio-grid{grid-template-columns:1fr;}
+    .signature-grid{grid-template-columns:1fr;}
+    .bio-paragraph{padding:30px 25px;margin-top:40px;}
 }
-
 @media(max-width:650px){
-
-    .hero{
-
-        padding-top:120px;
-
-    }
-
-    .hero h1{
-
-        font-size:72px;
-
-        letter-spacing:-6px;
-
-    }
-
-    .hero-visual{
-
-        height:500px;
-
-    }
-
-    .hero-photo{
-
-        width:85%;
-
-    }
-
-    .hero-card{
-
-        width:210px;
-
-    }
-
-    .intro,
-
-    .services,
-
-    .signature,
-
-    .portfolio,
-
-    .testimonial-section,
-
-    .booking{
-
-        padding-top:90px;
-
-        padding-bottom:90px;
-
-    }
-
-    .form-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .form-group.full{
-
-        grid-column:auto;
-
-    }
-
-    .booking-form{
-
-        padding:25px;
-
-    }
-
-    .footer-top,
-
-    .footer-bottom{
-
-        flex-direction:column;
-
-    }
-
-    .footer-logo{
-
-        font-size:45px;
-
-    }
-
+    .hero{padding-top:120px;}
+    .hero h1{font-size:72px;letter-spacing:-6px;}
+    .hero-visual{height:500px;}
+    .hero-photo{width:85%;}
+    .hero-card{width:210px;}
+    .intro,.services,.signature,.portfolio,.testimonial-section,.booking{padding-top:90px;padding-bottom:90px;}
+    .form-grid{grid-template-columns:1fr;}
+    .form-group.full{grid-column:auto;}
+    .booking-form{padding:25px;}
+    .footer-top,.footer-bottom{flex-direction:column;}
+    .footer-logo{font-size:45px;}
+    .bio-paragraph{font-size:16px;padding:25px 20px;}
+    .bio-signature{flex-wrap:wrap;gap:10px;}
 }
-
 </style>
-
 </head>
-
-
 <body>
 
+<!-- Custom Cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
 
-<!-- =========================================================
-     NAVIGATION
-========================================================= -->
+<!-- Progress Bar -->
+<div class="progress-bar"></div>
 
+<!-- Loader -->
+<div class="loader" id="loader">
+    <div class="loader-text">
+        <span>MC</span><span>GRAHAM</span><span>ESONGA</span>
+    </div>
+    <div class="loader-bar"></div>
+    <div class="loader-sub">Loading Experience</div>
+</div>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Navbar -->
 <nav class="navbar">
-
-<a href="#home" class="logo">
-
-MC <span>GRAHAM</span>
-
-</a>
-
-
-<ul class="nav-links">
-
-<li>
-<a href="#about">ABOUT</a>
-</li>
-
-<li>
-<a href="#services">EXPERTISE</a>
-</li>
-
-<li>
-<a href="#portfolio">EXPERIENCE</a>
-</li>
-
-<li>
-<a href="#booking" class="book-nav">
-
-BOOK MC GRAHAM
-
-</a>
-</li>
-
-</ul>
-
-
-<button class="menu">
-
-☰
-
-</button>
-
+    <a href="#home" class="logo">MC <span>GRAHAM</span></a>
+    <ul class="nav-links">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#services">EXPERTISE</a></li>
+        <li><a href="#portfolio">EXPERIENCE</a></li>
+        <li><a href="#booking" class="book-nav">BOOK MC GRAHAM</a></li>
+    </ul>
+    <button class="menu">☰</button>
 </nav>
 
-
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
+<!-- Hero -->
 <section class="hero" id="home">
-
-<div class="hero-container">
-
-<div class="hero-grid">
-
-
-<div>
-
-<div class="hero-kicker">
-
-<span class="kicker-line"></span>
-
-CORPORATE MC • EVENT HOST • MODERATOR
-
-</div>
-
-
-<h1>
-
-<span class="black">
-
-MC
-
-</span>
-
-<span class="gold">
-
-GRAHAM
-
-</span>
-
-<span class="orange">
-
-ESONGA.
-
-</span>
-
-</h1>
-
-
-<p class="hero-description">
-
-I don't just hold the microphone.
-
-I command the room, connect the audience
-and create moments people remember.
-
-</p>
-
-
-<div class="hero-actions">
-
-<a href="#booking"
-
-class="btn btn-primary">
-
-BOOK MC GRAHAM →
-
-</a>
-
-
-<a href="#portfolio"
-
-class="btn btn-secondary">
-
-EXPLORE MY EXPERIENCE
-
-</a>
-
-</div>
-
-</div>
-
-
-
-<div class="hero-visual">
-
-
-<div class="hero-photo"></div>
-
-
-<div class="hero-card">
-
-<small>
-
-THE MC GRAHAM EXPERIENCE
-
-</small>
-
-
-<h3>
-
-The room.
-
-The energy.
-
-The moment.
-
-</h3>
-
-</div>
-
-
-<div class="hero-stamp">
-
-CREATE
-
-<br>
-
-THE
-
-<br>
-
-MOMENT
-
-</div>
-
-
-</div>
-
-
-</div>
-
-</div>
-
+    <div class="hero-bg-shapes">
+        <div class="hero-shape s1"></div>
+        <div class="hero-shape s2"></div>
+        <div class="hero-shape s3"></div>
+    </div>
+    <div class="hero-container">
+        <div class="hero-grid">
+            <div>
+                <div class="hero-kicker">
+                    <span class="kicker-line"></span>
+                    CORPORATE MC • EVENT HOST • MODERATOR
+                </div>
+                <h1>
+                    <span class="line"><span class="line-inner black">MC</span></span>
+                    <span class="line"><span class="line-inner gold">GRAHAM</span></span>
+                    <span class="line"><span class="line-inner orange">ESONGA.</span></span>
+                </h1>
+                <p class="hero-description">
+                    I don't just hold the microphone. I command the room, connect the audience and create moments people remember.
+                </p>
+                <div class="hero-actions">
+                    <a href="#booking" class="btn btn-primary"><span>BOOK MC GRAHAM →</span></a>
+                    <a href="#portfolio" class="btn btn-secondary"><span>EXPLORE MY EXPERIENCE</span></a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-photo"></div>
+                <div class="hero-card">
+                    <small>THE MC GRAHAM EXPERIENCE</small>
+                    <h3>The room.<br>The energy.<br>The moment.</h3>
+                </div>
+                <div class="hero-stamp">CREATE<br>THE<br>MOMENT</div>
+            </div>
+        </div>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     MARQUEE
-========================================================= -->
-
+<!-- Marquee -->
 <div class="marquee">
-
-<div class="marquee-track">
-
-
-<div class="marquee-item">
-
-CORPORATE EVENTS
-
-<span>✦</span>
-
+    <div class="marquee-track">
+        <div class="marquee-item">CORPORATE EVENTS <span>✦</span></div>
+        <div class="marquee-item">CONFERENCES <span>✦</span></div>
+        <div class="marquee-item">AWARDS & GALAS <span>✦</span></div>
+        <div class="marquee-item">PANEL MODERATION <span>✦</span></div>
+        <div class="marquee-item">PRODUCT LAUNCHES <span>✦</span></div>
+        <div class="marquee-item">BOOK LAUNCHES <span>✦</span></div>
+        <div class="marquee-item">CORPORATE EVENTS <span>✦</span></div>
+        <div class="marquee-item">CONFERENCES <span>✦</span></div>
+        <div class="marquee-item">AWARDS & GALAS <span>✦</span></div>
+        <div class="marquee-item">PANEL MODERATION <span>✦</span></div>
+    </div>
 </div>
 
-
-<div class="marquee-item">
-
-CONFERENCES
-
-<span>✦</span>
-
-</div>
-
-
-<div class="marquee-item">
-
-AWARDS & GALAS
-
-<span>✦</span>
-
-</div>
-
-
-<div class="marquee-item">
-
-PANEL MODERATION
-
-<span>✦</span>
-
-</div>
-
-
-<div class="marquee-item">
-
-PRODUCT LAUNCHES
-
-<span>✦</span>
-
-</div>
-
-
-<div class="marquee-item">
-
-BOOK LAUNCHES
-
-<span>✦</span>
-
-</div>
-
-
-<div class="marquee-item">
-
-CORPORATE EVENTS
-
-<span>✦</span>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =========================================================
-     ABOUT
-========================================================= -->
-
+<!-- About -->
 <section class="intro" id="about">
+    <div class="intro-container">
+        <div class="section-label reveal">01 — MEET MC GRAHAM</div>
+        <h2>
+            <span class="word"><span class="word-inner">A</span></span>
+            <span class="word"><span class="word-inner">great</span></span>
+            <span class="word"><span class="word-inner">event</span></span>
+            <span class="word"><span class="word-inner">isn't</span></span>
+            <span class="word"><span class="word-inner">just</span></span>
+            <span class="word"><span class="word-inner">about</span></span>
+            <span class="word"><span class="word-inner">what</span></span>
+            <span class="word"><span class="word-inner">happens</span></span>
+            <span class="word"><span class="word-inner">on</span></span>
+            <span class="word"><span class="word-inner">stage.</span></span>
+            <br>
+            <span class="word"><span class="word-inner">It's</span></span>
+            <span class="word"><span class="word-inner">about</span></span>
+            <span class="word"><span class="word-inner">how</span></span>
+            <span class="word"><span class="word-inner">the</span></span>
+            <span class="word"><span class="word-inner">room</span></span>
+            <em><span class="word"><span class="word-inner">feels.</span></span></em>
+        </h2>
 
-<div class="intro-container">
+        <!-- NEW BIO PARAGRAPH -->
+        <p class="bio-paragraph" id="bioParagraph">
+            MC Graham is a distinguished <span class="bio-highlight">Corporate Master of Ceremonies</span>, event host, and moderator renowned for his commanding stage presence, eloquent delivery, and exceptional ability to cultivate meaningful audience engagement. Blending sophistication with dynamic energy, he orchestrates seamless event experiences that captivate, inspire, and leave lasting impressions. Whether presiding over executive conferences, prestigious awards galas, panel discussions, product unveilings, or book launches, MC Graham transforms every occasion into an immersive and memorable experience where every transition is intentional, every interaction is authentic, and every moment resonates with purpose.
+            <span class="bio-signature">
+                <span class="bio-sig-line"></span>
+                <span class="bio-sig-name">MC GRAHAM ESONGA</span>
+                <span>— Corporate MC & Event Host</span>
+            </span>
+        </p>
 
-
-<div class="section-label">
-
-01 — MEET MC GRAHAM
-
-</div>
-
-
-<h2>
-
-A great event isn't just about
-
-what happens on stage.
-
-<br>
-
-It's about how the room
-
-<em>feels.</em>
-
-</h2>
-
-
-<p class="intro-bottom">
-
-I'm Graham Esonga, professionally known as MC Graham.
-
-I specialise in creating intelligent, engaging and memorable
-experiences for corporate events, conferences, awards,
-gala dinners, panel discussions, product launches and book launches.
-
-</p>
-
-
-</div>
-
+        <p class="intro-bottom">
+            I'm Graham Esonga, professionally known as MC Graham. I specialise in creating intelligent, engaging and memorable experiences for corporate events, conferences, awards, gala dinners, panel discussions, product launches and book launches.
+        </p>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     SERVICES
-========================================================= -->
-
+<!-- Services -->
 <section class="services" id="services">
-
-<div class="services-container">
-
-
-<div class="section-label">
-
-02 — WHAT I DO
-
-</div>
-
-
-<div class="services-heading">
-
-
-<h2>
-
-I make
-
-<br>
-
-moments matter.
-
-</h2>
-
-
-<p>
-
-From high-level corporate conferences to
-unforgettable celebrations, I bring the right
-energy, structure and personality to every room.
-
-</p>
-
-
-</div>
-
-
-<div class="service-list">
-
-
-<div class="service">
-
-<div class="service-number">
-
-01
-
-</div>
-
-
-<h3>
-
-Corporate Events
-
-</h3>
-
-
-<p>
-
-Professional hosting for conferences,
-leadership forums and corporate gatherings.
-
-</p>
-
-
-<div class="service-arrow">
-
-↗
-
-</div>
-
-</div>
-
-
-
-<div class="service">
-
-<div class="service-number">
-
-02
-
-</div>
-
-
-<h3>
-
-Awards & Gala Dinners
-
-</h3>
-
-
-<p>
-
-Elegant, energetic hosting for moments
-worth celebrating.
-
-</p>
-
-
-<div class="service-arrow">
-
-↗
-
-</div>
-
-</div>
-
-
-
-<div class="service">
-
-<div class="service-number">
-
-03
-
-</div>
-
-
-<h3>
-
-Panel Moderation
-
-</h3>
-
-
-<p>
-
-Intelligent conversations that bring out
-the best insights from every speaker.
-
-</p>
-
-
-<div class="service-arrow">
-
-↗
-
-</div>
-
-</div>
-
-
-
-<div class="service">
-
-<div class="service-number">
-
-04
-
-</div>
-
-
-<h3>
-
-Product Launches
-
-</h3>
-
-
-<p>
-
-Building excitement around your brand's
-biggest moments.
-
-</p>
-
-
-<div class="service-arrow">
-
-↗
-
-</div>
-
-</div>
-
-
-
-<div class="service">
-
-<div class="service-number">
-
-05
-
-</div>
-
-
-<h3>
-
-Book Launches
-
-</h3>
-
-
-<p>
-
-Creating thoughtful and memorable
-literary experiences.
-
-</p>
-
-
-<div class="service-arrow">
-
-↗
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
+    <div class="services-container">
+        <div class="section-label reveal">02 — WHAT I DO</div>
+        <div class="services-heading">
+            <h2 class="reveal">I make<br>moments matter.</h2>
+            <p class="reveal">From high-level corporate conferences to unforgettable celebrations, I bring the right energy, structure and personality to every room.</p>
+        </div>
+        <div class="service-list">
+            <div class="service reveal">
+                <div class="service-number">01</div>
+                <h3>Corporate Events</h3>
+                <p>Professional hosting for conferences, leadership forums and corporate gatherings.</p>
+                <div class="service-arrow">↗</div>
+            </div>
+            <div class="service reveal">
+                <div class="service-number">02</div>
+                <h3>Awards & Gala Dinners</h3>
+                <p>Elegant, energetic hosting for moments worth celebrating.</p>
+                <div class="service-arrow">↗</div>
+            </div>
+            <div class="service reveal">
+                <div class="service-number">03</div>
+                <h3>Panel Moderation</h3>
+                <p>Intelligent conversations that bring out the best insights from every speaker.</p>
+                <div class="service-arrow">↗</div>
+            </div>
+            <div class="service reveal">
+                <div class="service-number">04</div>
+                <h3>Product Launches</h3>
+                <p>Building excitement around your brand's biggest moments.</p>
+                <div class="service-arrow">↗</div>
+            </div>
+            <div class="service reveal">
+                <div class="service-number">05</div>
+                <h3>Book Launches</h3>
+                <p>Creating thoughtful and memorable literary experiences.</p>
+                <div class="service-arrow">↗</div>
+            </div>
+        </div>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     SIGNATURE
-========================================================= -->
-
+<!-- Signature -->
 <section class="signature">
-
-<div class="signature-container">
-
-
-<div class="section-label">
-
-03 — THE GRAHAM EFFECT
-
-</div>
-
-
-<h2>
-
-ENERGY.
-
-<br>
-
-<span>INTELLIGENCE.</span>
-
-<br>
-
-CONNECTION.
-
-</h2>
-
-
-<div class="signature-grid">
-
-
-<div class="signature-card">
-
-<strong>
-
-01
-
-</strong>
-
-
-<h3>
-
-READ THE ROOM
-
-</h3>
-
-
-<p>
-
-Knowing when to energise,
-when to listen and when
-to let the moment breathe.
-
-</p>
-
-</div>
-
-
-
-<div class="signature-card">
-
-<strong>
-
-02
-
-</strong>
-
-
-<h3>
-
-OWN THE MOMENT
-
-</h3>
-
-
-<p>
-
-Every transition feels natural.
-Every segment feels intentional.
-Every speaker gets their moment.
-
-</p>
-
-</div>
-
-
-
-<div class="signature-card">
-
-<strong>
-
-03
-
-</strong>
-
-
-<h3>
-
-MOVE THE AUDIENCE
-
-</h3>
-
-
-<p>
-
-Because the best events aren't
-just attended.
-
-They're experienced.
-
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
+    <div class="signature-container">
+        <div class="section-label reveal">03 — THE GRAHAM EFFECT</div>
+        <h2>
+            <span class="sig-line"><span class="sig-inner">ENERGY.</span></span>
+            <span class="sig-line"><span class="sig-inner"><span>INTELLIGENCE.</span></span></span>
+            <span class="sig-line"><span class="sig-inner">CONNECTION.</span></span>
+        </h2>
+        <div class="signature-grid">
+            <div class="signature-card">
+                <strong>01</strong>
+                <h3>READ THE ROOM</h3>
+                <p>Knowing when to energise, when to listen and when to let the moment breathe.</p>
+            </div>
+            <div class="signature-card">
+                <strong>02</strong>
+                <h3>OWN THE MOMENT</h3>
+                <p>Every transition feels natural. Every segment feels intentional. Every speaker gets their moment.</p>
+            </div>
+            <div class="signature-card">
+                <strong>03</strong>
+                <h3>MOVE THE AUDIENCE</h3>
+                <p>Because the best events aren't just attended. They're experienced.</p>
+            </div>
+        </div>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     PORTFOLIO
-========================================================= -->
-
+<!-- Portfolio -->
 <section class="portfolio" id="portfolio">
-
-<div class="portfolio-container">
-
-
-<div class="section-label">
-
-04 — SELECTED EXPERIENCES
-
-</div>
-
-
-<div class="portfolio-header">
-
-
-<h2>
-
-Rooms I've helped
-
-<br>
-
-<span>
-
-come alive.
-
-</span>
-
-</h2>
-
-
-<p>
-
-From boardrooms to ballrooms.
-
-From executive conversations
-to high-energy celebrations.
-
-</p>
-
-
-</div>
-
-
-<div class="portfolio-grid">
-
-
-<div class="project">
-
-
-<div class="project-content">
-
-
-<span class="project-tag">
-
-CORPORATE
-
-</span>
-
-
-<h3>
-
-Corporate Conferences
-
-</h3>
-
-
-</div>
-
-</div>
-
-
-
-<div class="project">
-
-
-<div class="project-content">
-
-
-<span class="project-tag">
-
-CELEBRATION
-
-</span>
-
-
-<h3>
-
-Awards & Gala Nights
-
-</h3>
-
-
-</div>
-
-</div>
-
-
-
-<div class="project">
-
-
-<div class="project-content">
-
-
-<span class="project-tag">
-
-MODERATION
-
-</span>
-
-
-<h3>
-
-Powerful Conversations
-
-</h3>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
+    <div class="portfolio-container">
+        <div class="section-label reveal">04 — SELECTED EXPERIENCES</div>
+        <div class="portfolio-header">
+            <h2 class="reveal">Rooms I've helped<br><span>come alive.</span></h2>
+            <p class="reveal">From boardrooms to ballrooms. From executive conversations to high-energy celebrations.</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="project reveal">
+                <div class="project-img"></div>
+                <div class="project-content">
+                    <span class="project-tag">CORPORATE</span>
+                    <h3>Corporate Conferences</h3>
+                </div>
+            </div>
+            <div class="project reveal">
+                <div class="project-img"></div>
+                <div class="project-content">
+                    <span class="project-tag">CELEBRATION</span>
+                    <h3>Awards & Gala Nights</h3>
+                </div>
+            </div>
+            <div class="project reveal">
+                <div class="project-img"></div>
+                <div class="project-content">
+                    <span class="project-tag">MODERATION</span>
+                    <h3>Powerful Conversations</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     TESTIMONIAL
-========================================================= -->
-
+<!-- Testimonial -->
 <section class="testimonial-section">
-
-<div class="testimonial-container">
-
-
-<div class="section-label">
-
-05 — WORDS FROM THE ROOM
-
-</div>
-
-
-<div class="quote-mark">
-
-"
-
-</div>
-
-
-<div class="testimonial-text">
-
-MC Graham brought exactly the energy
-we needed. Professional, confident
-and completely in control of the room.
-
-</div>
-
-
-<div class="testimonial-person">
-
-<strong>
-
-CLIENT NAME
-
-</strong>
-
-
-<br>
-
-Corporate Event Organiser
-
-</div>
-
-
-</div>
-
+    <div class="testimonial-container">
+        <div class="section-label reveal">05 — WORDS FROM THE ROOM</div>
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text" id="testimonialText">
+            MC Graham brought exactly the energy we needed. Professional, confident and completely in control of the room.
+        </div>
+        <div class="testimonial-person">
+            <strong>CLIENT NAME</strong><br>
+            Corporate Event Organiser
+        </div>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     BOOKING
-========================================================= -->
-
+<!-- Booking -->
 <section class="booking" id="booking">
-
-<div class="booking-container">
-
-
-<div class="booking-copy">
-
-
-<div class="section-label">
-
-06 — BOOK MC GRAHAM
-
-</div>
-
-
-<h2>
-
-Let's make your
-
-event unforgettable.
-
-</h2>
-
-
-<p>
-
-Planning something important?
-
-Tell me about your event,
-your audience and the experience
-you want to create.
-
-</p>
-
-
-<br>
-
-
-<a href="https://wa.me/254741272294?text=Hello%20MC%20Graham%2C%20I%27d%20like%20to%20enquire%20about%20booking%20you%20for%20an%20event."
-
-target="_blank"
-
-class="btn btn-secondary">
-
-WHATSAPP MC GRAHAM
-
-</a>
-
-
-</div>
-
-
-
-<form class="booking-form"
-
-id="bookingForm"
-
-onsubmit="submitBooking(event)">
-
-
-<div class="form-grid">
-
-
-<div class="form-group">
-
-<label>
-
-Your Name
-
-</label>
-
-
-<input
-
-id="clientName"
-
-type="text"
-
-placeholder="Your name"
-
-required>
-
-</div>
-
-
-
-<div class="form-group">
-
-<label>
-
-Organisation
-
-</label>
-
-
-<input
-
-id="clientOrg"
-
-type="text"
-
-placeholder="Company / Organisation">
-
-</div>
-
-
-
-<div class="form-group">
-
-<label>
-
-Email
-
-</label>
-
-
-<input
-
-id="clientEmail"
-
-type="email"
-
-placeholder="you@email.com"
-
-required>
-
-</div>
-
-
-
-<div class="form-group">
-
-<label>
-
-Phone
-
-</label>
-
-
-<input
-
-id="clientPhone"
-
-type="tel"
-
-placeholder="+254..."
-
-required>
-
-</div>
-
-
-
-<div class="form-group full">
-
-<label>
-
-Event Type
-
-</label>
-
-
-<select id="eventType">
-
-<option>
-
-Corporate Event / Conference
-
-</option>
-
-<option>
-
-Awards / Gala Dinner
-
-</option>
-
-<option>
-
-Panel Moderation
-
-</option>
-
-<option>
-
-Product Launch
-
-</option>
-
-<option>
-
-Book Launch
-
-</option>
-
-</select>
-
-</div>
-
-
-
-<div class="form-group full">
-
-<label>
-
-Tell Me About Your Event
-
-</label>
-
-
-<textarea
-
-id="eventDetails"
-
-placeholder="Event date, venue, audience size and event details...">
-
-</textarea>
-
-</div>
-
-
-</div>
-
-
-<button
-
-type="submit"
-
-class="btn submit-button">
-
-SEND BOOKING REQUEST →
-
-</button>
-
-
-<p class="form-note">
-
-Clicking send will open your email app (addressed to MC Graham) and WhatsApp with the details pre-filled — just hit send in each to complete your request.
-
-</p>
-
-
-</form>
-
-
-</div>
-
+    <div class="booking-container">
+        <div class="booking-copy">
+            <div class="section-label reveal">06 — BOOK MC GRAHAM</div>
+            <h2 class="reveal">Let's make your<br>event unforgettable.</h2>
+            <p class="reveal">Planning something important? Tell me about your event, your audience and the experience you want to create.</p>
+            <br>
+            <a href="https://wa.me/254741272294?text=Hello%20MC%20Graham%2C%20I%27d%20like%20to%20enquire%20about%20booking%20you%20for%20an%20event." target="_blank" class="btn btn-secondary reveal"><span>WHATSAPP MC GRAHAM</span></a>
+        </div>
+        <form class="booking-form" id="bookingForm" onsubmit="submitBooking(event)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input id="clientName" type="text" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Organisation</label>
+                    <input id="clientOrg" type="text" placeholder="Company / Organisation">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input id="clientEmail" type="email" placeholder="you@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input id="clientPhone" type="tel" placeholder="+254..." required>
+                </div>
+                <div class="form-group full">
+                    <label>Event Type</label>
+                    <select id="eventType">
+                        <option>Corporate Event / Conference</option>
+                        <option>Awards / Gala Dinner</option>
+                        <option>Panel Moderation</option>
+                        <option>Product Launch</option>
+                        <option>Book Launch</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label>Tell Me About Your Event</label>
+                    <textarea id="eventDetails" placeholder="Event date, venue, audience size and event details..."></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn submit-button"><span>SEND BOOKING REQUEST →</span></button>
+            <p class="form-note">Clicking send will open your email app and WhatsApp with the details pre-filled — just hit send in each to complete your request.</p>
+        </form>
+    </div>
 </section>
 
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
+<!-- Footer -->
 <footer>
-
-<div class="footer-container">
-
-
-<div class="footer-top">
-
-
-<div>
-
-
-<div class="footer-logo">
-
-MC <span>GRAHAM</span>
-
-</div>
-
-
-<p class="footer-tagline">
-
-Corporate MC.
-
-Event Host.
-
-Moderator.
-
-Creating experiences that move people.
-
-</p>
-
-
-</div>
-
-
-
-<div class="footer-links">
-
-
-<a href="#about">
-
-ABOUT
-
-</a>
-
-
-<a href="#services">
-
-EXPERTISE
-
-</a>
-
-
-<a href="#portfolio">
-
-EXPERIENCE
-
-</a>
-
-
-<a href="#booking">
-
-BOOK ME
-
-</a>
-
-
-</div>
-
-
-</div>
-
-
-<div class="footer-bottom">
-
-
-<span>
-
-© 2026 MC GRAHAM ESONGA
-
-</span>
-
-
-<span>
-
-THE ROOM. THE ENERGY. THE MOMENT.
-
-</span>
-
-
-</div>
-
-
-</div>
-
+    <div class="footer-container">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo">MC <span>GRAHAM</span></div>
+                <p class="footer-tagline">Corporate MC. Event Host. Moderator. Creating experiences that move people.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#about">ABOUT</a>
+                <a href="#services">EXPERTISE</a>
+                <a href="#portfolio">EXPERIENCE</a>
+                <a href="#booking">BOOK ME</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 MC GRAHAM ESONGA</span>
+            <span>THE ROOM. THE ENERGY. THE MOMENT.</span>
+        </div>
+    </div>
 </footer>
 
-
-
-<!-- =========================================================
-     FLOATING BOOK BUTTON
-========================================================= -->
-
-<a href="#booking"
-
-class="floating-book">
-
-BOOK
-
-<br>
-
-GRAHAM
-
-</a>
-
-
+<!-- Floating Book -->
+<a href="#booking" class="floating-book">BOOK<br>GRAHAM</a>
 
 <script>
+// Custom Cursor
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-/* =========================================================
-   BOOKING FORM
-   Sends the enquiry to MC Graham via email (mailto) and
-   WhatsApp (wa.me), pre-filled with everything the client
-   entered. There is no backend/server here, so the visitor's
-   own email app and WhatsApp will open with the message ready
-   — they just need to tap "send" in each.
-========================================================= */
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursorDot.style.left = mouseX - 4 + 'px';
+    cursorDot.style.top = mouseY - 4 + 'px';
+});
 
+function animateCursor() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, .btn, .service, .project').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+});
+
+// Loader
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+        animateHero();
+    }, 2500);
+});
+
+// Hero Animations
+function animateHero() {
+    const lines = document.querySelectorAll('.line-inner');
+    lines.forEach((line, i) => {
+        setTimeout(() => {
+            line.style.transition = 'transform .9s cubic-bezier(.77,0,.18,1)';
+            line.style.transform = 'translateY(0)';
+        }, i * 150);
+    });
+    setTimeout(() => {
+        const kicker = document.querySelector('.hero-kicker');
+        kicker.style.transition = 'opacity .8s';
+        kicker.style.opacity = '1';
+    }, 600);
+    setTimeout(() => {
+        const desc = document.querySelector('.hero-description');
+        desc.style.transition = 'opacity .8s, transform .8s';
+        desc.style.opacity = '1';
+        desc.style.transform = 'translateY(0)';
+    }, 900);
+    setTimeout(() => {
+        const actions = document.querySelector('.hero-actions');
+        actions.style.transition = 'opacity .8s, transform .8s';
+        actions.style.opacity = '1';
+        actions.style.transform = 'translateY(0)';
+    }, 1100);
+    setTimeout(() => {
+        const photo = document.querySelector('.hero-photo');
+        photo.style.transition = 'opacity 1s, transform 1s cubic-bezier(.25,.46,.45,.94)';
+        photo.style.opacity = '1';
+        photo.style.transform = 'translateY(0)';
+    }, 400);
+    setTimeout(() => {
+        const card = document.querySelector('.hero-card');
+        card.style.transition = 'opacity .8s, transform .8s';
+        card.style.opacity = '1';
+        card.style.transform = 'translateX(0)';
+    }, 800);
+}
+
+// Scroll Progress
+window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector('.progress-bar').style.width = scrolled + '%';
+    const nav = document.querySelector('.navbar');
+    if (window.scrollY > 100) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+});
+
+// Intersection Observer for Reveals
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            if (entry.target.classList.contains('signature-card')) {
+                entry.target.style.transition = 'opacity .8s, transform .8s';
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal, .signature-card').forEach(el => observer.observe(el));
+
+// Bio paragraph reveal with highlight animation
+const bioParagraph = document.getElementById('bioParagraph');
+if (bioParagraph) {
+    const bioObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+                // Trigger highlight underline animation
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, 400);
+                bioObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.25 });
+    bioObserver.observe(bioParagraph);
+}
+
+// Stagger signature cards
+const sigObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const cards = document.querySelectorAll('.signature-card');
+            cards.forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.transition = 'opacity .8s, transform .8s';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, i * 200);
+            });
+            sigObserver.disconnect();
+        }
+    });
+}, { threshold: 0.2 });
+const sigGrid = document.querySelector('.signature-grid');
+if (sigGrid) sigObserver.observe(sigGrid);
+
+// Booking form reveal
+const formObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.transition = 'opacity 1s, transform 1s';
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.2 });
+const bookingForm = document.querySelector('.booking-form');
+if (bookingForm) formObserver.observe(bookingForm);
+
+// Testimonial word animation
+const testimonialText = document.getElementById('testimonialText');
+if (testimonialText) {
+    const words = testimonialText.textContent.trim().split(/\s+/);
+    testimonialText.innerHTML = words.map(w => `<span class="t-word">${w}</span>`).join(' ');
+    const tObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const tWords = entry.target.querySelectorAll('.t-word');
+                tWords.forEach((w, i) => {
+                    setTimeout(() => {
+                        w.style.transition = 'opacity .4s, transform .4s';
+                        w.style.opacity = '1';
+                        w.style.transform = 'translateY(0)';
+                    }, i * 60);
+                });
+                tObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.3 });
+    tObserver.observe(testimonialText);
+}
+
+// Quote mark animation
+const quoteMark = document.querySelector('.quote-mark');
+const qObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.transition = 'opacity 1s';
+            entry.target.style.opacity = '1';
+            qObserver.disconnect();
+        }
+    });
+}, { threshold: 0.5 });
+if (quoteMark) qObserver.observe(quoteMark);
+
+// Testimonial person
+const tPerson = document.querySelector('.testimonial-person');
+const tpObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.transition = 'opacity .8s';
+            entry.target.style.opacity = '1';
+            tpObserver.disconnect();
+        }
+    });
+}, { threshold: 0.5 });
+if (tPerson) tpObserver.observe(tPerson);
+
+// Intro words animation
+const introWords = document.querySelectorAll('.intro .word-inner');
+const introObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            introWords.forEach((w, i) => {
+                setTimeout(() => {
+                    w.style.transition = 'transform .6s cubic-bezier(.77,0,.18,1)';
+                    w.style.transform = 'translateY(0)';
+                }, i * 40);
+            });
+            introObserver.disconnect();
+        }
+    });
+}, { threshold: 0.2 });
+const introH2 = document.querySelector('.intro h2');
+if (introH2) introObserver.observe(introH2);
+
+// Signature lines animation
+const sigLines = document.querySelectorAll('.sig-inner');
+const sigLineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            sigLines.forEach((l, i) => {
+                setTimeout(() => {
+                    l.style.transition = 'transform 1s cubic-bezier(.77,0,.18,1)';
+                    l.style.transform = 'translateY(0)';
+                }, i * 200);
+            });
+            sigLineObserver.disconnect();
+        }
+    });
+}, { threshold: 0.3 });
+const sigH2 = document.querySelector('.signature h2');
+if (sigH2) sigLineObserver.observe(sigH2);
+
+// Parallax on hero photo
+window.addEventListener('scroll', () => {
+    const photo = document.querySelector('.hero-photo');
+    if (photo) {
+        const scrolled = window.scrollY;
+        photo.style.transform = `translateY(${scrolled * 0.15}px)`;
+    }
+});
+
+// Particles
+const particlesContainer = document.getElementById('particles');
+function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
+    p.style.opacity = '0';
+    particlesContainer.appendChild(p);
+    const duration = Math.random() * 4000 + 3000;
+    p.animate([
+        { opacity: 0, transform: 'translateY(0) scale(0)' },
+        { opacity: 0.6, transform: 'translateY(-50px) scale(1)' },
+        { opacity: 0, transform: 'translateY(-100px) scale(0)' }
+    ], { duration, easing: 'ease-out' });
+    setTimeout(() => p.remove(), duration);
+}
+setInterval(createParticle, 400);
+
+// Magnetic effect on buttons
+document.querySelectorAll('.btn, .floating-book').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+    });
+});
+
+// Booking Form
 const GRAHAM_EMAIL = "grahamesongakenya@gmail.com";
 const GRAHAM_WHATSAPP = "254741272294";
 
-function submitBooking(event){
-
+function submitBooking(event) {
     event.preventDefault();
-
     const name = document.getElementById("clientName").value;
     const org = document.getElementById("clientOrg").value;
     const email = document.getElementById("clientEmail").value;
@@ -2943,45 +1144,19 @@ function submitBooking(event){
     const eventType = document.getElementById("eventType").value;
     const details = document.getElementById("eventDetails").value;
 
-    const summary =
-        "New Booking Request\n" +
-        "--------------------------\n" +
-        "Name: " + name + "\n" +
-        "Organisation: " + (org || "-") + "\n" +
-        "Email: " + email + "\n" +
-        "Phone: " + phone + "\n" +
-        "Event Type: " + eventType + "\n" +
-        "Details: " + (details || "-");
+    const summary = "New Booking Request\n--------------------------\nName: " + name + "\nOrganisation: " + (org || "-") + "\nEmail: " + email + "\nPhone: " + phone + "\nEvent Type: " + eventType + "\nDetails: " + (details || "-");
 
-    // 1) Open the visitor's email app, addressed to MC Graham
     const mailSubject = encodeURIComponent("New Booking Request — " + name);
     const mailBody = encodeURIComponent(summary);
-    const mailtoLink =
-        "mailto:" + GRAHAM_EMAIL +
-        "?subject=" + mailSubject +
-        "&body=" + mailBody;
-
+    const mailtoLink = "mailto:" + GRAHAM_EMAIL + "?subject=" + mailSubject + "&body=" + mailBody;
     window.location.href = mailtoLink;
 
-    // 2) Open WhatsApp with the same details, addressed to MC Graham
     const waText = encodeURIComponent(summary);
     const waLink = "https://wa.me/" + GRAHAM_WHATSAPP + "?text=" + waText;
+    setTimeout(() => window.open(waLink, "_blank"), 400);
 
-    setTimeout(function(){
-        window.open(waLink, "_blank");
-    }, 400);
-
-    alert(
-        "Thank you, " +
-        name +
-        "! We've opened your email app and WhatsApp with your booking details filled in — just hit send in each to complete your request."
-    );
-
+    alert("Thank you, " + name + "! We've opened your email app and WhatsApp with your booking details filled in — just hit send in each to complete your request.");
 }
-
 </script>
-
-
 </body>
-
 </html>
