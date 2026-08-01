@@ -273,6 +273,7 @@ img{max-width:100%;height:auto;display:block;}
 }
 .clients-track{
     display:flex;
+    align-items:center;
     width:max-content;
     animation:marqueeRight 30s linear infinite;
 }
@@ -283,19 +284,23 @@ img{max-width:100%;height:auto;display:block;}
     display:flex;
     align-items:center;
     justify-content:center;
-    width:220px;
-    height:80px;
-    margin:0 50px;
-    filter:grayscale(100%) opacity(0.5);
-    transition:filter 0.4s ease, transform 0.4s ease;
+    width:280px;
+    height:130px;
+    margin:0 40px;
+    padding:10px;
+    /* full, natural color — no grayscale/fade */
+    filter:none;
+    opacity:1;
+    transition:transform 0.4s ease;
 }
 .client-logo:hover{
-    filter:grayscale(0%) opacity(1);
-    transform:scale(1.05);
+    transform:scale(1.08);
 }
 .client-logo img{
     max-width:100%;
     max-height:100%;
+    width:auto;
+    height:auto;
     object-fit:contain;
 }
 
@@ -692,7 +697,7 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
 
     /* Mobile adjustments for clients marquee */
     .clients{padding:50px 0;}
-    .client-logo{width:160px;height:60px;margin:0 30px;}
+    .client-logo{width:170px;height:80px;margin:0 24px;padding:6px;}
 }
 
 @media(max-width:380px){
@@ -704,6 +709,7 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
     .hero-visual{height:360px;}
     .hero-card{width:160px;padding:12px;}
     .hero-card h3{font-size:15px;}
+    .client-logo{width:140px;height:65px;margin:0 18px;}
 }
 
 /* Touch device optimizations */
