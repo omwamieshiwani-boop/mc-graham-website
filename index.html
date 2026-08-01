@@ -253,7 +253,7 @@ img{max-width:100%;height:auto;display:block;}
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 /* ============================================
-   NEW: CLIENTS / BRANDS MARQUEE SECTION
+   CLIENTS / BRANDS MARQUEE SECTION
 ============================================ */
 .clients{
     padding:70px 0;
@@ -297,15 +297,6 @@ img{max-width:100%;height:auto;display:block;}
     max-width:100%;
     max-height:100%;
     object-fit:contain;
-}
-/* Fallback text styling if images are not yet added */
-.client-logo-text{
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:-1px;
-    color:var(--black);
-    white-space:nowrap;
-    text-transform:uppercase;
 }
 
 /* Moves from left to right seamlessly */
@@ -702,7 +693,6 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
     /* Mobile adjustments for clients marquee */
     .clients{padding:50px 0;}
     .client-logo{width:160px;height:60px;margin:0 30px;}
-    .client-logo-text{font-size:18px;}
 }
 
 @media(max-width:380px){
@@ -727,7 +717,7 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
     .btn-primary:hover::before{transform:translateY(100%);}
     .btn-secondary:hover::before{transform:scaleX(0);}
     .btn-secondary:hover span{color:inherit;}
-    .clients-track{animation-play-state:running !important;} /* Keep moving on touch */
+    .clients-track{animation-play-state:running !important;}
 }
 </style>
 </head>
@@ -831,48 +821,43 @@ footer{padding:80px 5% 30px;background:var(--black);color:white;}
 </div>
 
 <!-- ============================================
-     NEW: TRUSTED BY / CLIENTS SECTION
+     TRUSTED BY / CLIENTS SECTION - WITH LOGO IMAGES
 ============================================= -->
 <section class="clients" id="clients">
     <div class="clients-label">Trusted By Industry Leaders</div>
     <div class="clients-track">
-        <!-- SET 1: Original 5 Brands -->
+        <!-- SET 1: Original 5 Brands with Logos -->
         <div class="client-logo">
-            <!-- REPLACE WITH: <img src="images/safaricom-logo.png" alt="Safaricom"> -->
-            <span class="client-logo-text">Safaricom</span>
+            <img src="images/logos/safaricom.png" alt="Safaricom">
         </div>
         <div class="client-logo">
-            <!-- REPLACE WITH: <img src="images/mesk-logo.png" alt="M.E.S.K"> -->
-            <span class="client-logo-text">M.E.S.K</span>
+            <img src="images/logos/mesk.png" alt="M.E.S.K">
         </div>
         <div class="client-logo">
-            <!-- REPLACE WITH: <img src="images/jkuat-logo.png" alt="JKUAT"> -->
-            <span class="client-logo-text">JKUAT</span>
+            <img src="images/logos/jkuat.png" alt="JKUAT">
         </div>
         <div class="client-logo">
-            <!-- REPLACE WITH: <img src="images/urban-rides-logo.png" alt="Urban Rides"> -->
-            <span class="client-logo-text">Urban Rides</span>
+            <img src="images/logos/urban-rides.png" alt="Urban Rides">
         </div>
         <div class="client-logo">
-            <!-- REPLACE WITH: <img src="images/delights-logo.png" alt="Delights"> -->
-            <span class="client-logo-text">Delights</span>
+            <img src="images/logos/delights.png" alt="Delights">
         </div>
 
         <!-- SET 2: Duplicate for seamless infinite loop -->
         <div class="client-logo">
-            <span class="client-logo-text">Safaricom</span>
+            <img src="images/logos/safaricom.png" alt="Safaricom">
         </div>
         <div class="client-logo">
-            <span class="client-logo-text">M.E.S.K</span>
+            <img src="images/logos/mesk.png" alt="M.E.S.K">
         </div>
         <div class="client-logo">
-            <span class="client-logo-text">JKUAT</span>
+            <img src="images/logos/jkuat.png" alt="JKUAT">
         </div>
         <div class="client-logo">
-            <span class="client-logo-text">Urban Rides</span>
+            <img src="images/logos/urban-rides.png" alt="Urban Rides">
         </div>
         <div class="client-logo">
-            <span class="client-logo-text">Delights</span>
+            <img src="images/logos/delights.png" alt="Delights">
         </div>
     </div>
 </section>
@@ -1369,7 +1354,7 @@ window.addEventListener('scroll', () => {
 // Particles
 const particlesContainer = document.getElementById('particles');
 function createParticle() {
-    if (window.innerWidth < 768) return; // Skip on mobile for performance
+    if (window.innerWidth < 768) return;
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.left = Math.random() * 100 + '%';
